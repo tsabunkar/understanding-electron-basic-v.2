@@ -18,8 +18,29 @@ function createWindow(event) {
         }
     });
 
+    let mainSession = mainWindow.webContents.session;
+
     // and load the index.html of the app.
     mainWindow.loadFile('index.html');
+
+    // ! To get the cookies of github
+    // mainWindow.loadURL('https://github.com/tsabunkar')
+
+    /*  mainSession.cookies.get({}, (error, cookies) => {
+         console.log(cookies); //cookies is an array
+     }) */
+
+    // !Setting up the cookie
+
+    mainSession.cookies.set({
+        url: 'https://myapp.com', name: 'cookie1',
+        value: 'cookie_value', domain: 'myapp.com', expirationDate: 999999999
+    },
+        (error) => {
+            console.log('cookie set');
+            if (error)
+                console.log('error occured', error);
+        });
 
 
     // Open the DevTools.

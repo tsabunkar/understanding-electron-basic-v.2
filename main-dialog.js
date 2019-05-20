@@ -1,11 +1,36 @@
 // Modules to control application life and create native browser window
-const { app, BrowserWindow } = require('electron')
+const { app, BrowserWindow, dialog } = require('electron')
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow
 
 
+showDialog = () => {
+
+    // !Open dialog
+    dialog.showOpenDialog({ buttonLabel: 'Select logo', properties: ['openFile', 'multiSelections', 'createDirectory'] },
+        (openPath) => {
+            console.log(openPath);
+        });
+
+    // !Save dialog
+    dialog.showSaveDialog({ defaultPath: '/Users' },
+        (fileName) => {
+            console.log(fileName);
+        });
+
+    let buttons = ['Yes', 'No', 'Maybe'];
+
+    // !message box
+    dialog.showMessageBox({
+        buttons, title: 'Electron Message Dialog', message: 'Please select an answer',
+        detail: 'A more decriptive message with some details..'
+    }, (buttonIndex) => {
+        console.log('User Selected', buttons[buttonIndex]);
+    })
+
+}
 
 function createWindow(event) {
 
@@ -21,6 +46,9 @@ function createWindow(event) {
     // and load the index.html of the app.
     mainWindow.loadFile('index.html');
 
+    setTimeout(() => {
+        showDialog();
+    }, 2000);
 
     // Open the DevTools.
     // mainWindow.webContents.openDevTools()
