@@ -32,3 +32,9 @@ Session : Bydefault a single default session is created in electron when app is 
 default session is also attached to each browser window as we create
 
 Session is resposnible for cookies, local storage and web sql, etc
+
+---
+
+accelerator- Are global shortcuts key boards button which user can press -> ctrl + A, shift + Z, etc
+
+---

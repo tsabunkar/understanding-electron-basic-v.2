@@ -1,5 +1,5 @@
 // Modules to control application life and create native browser window
-const { app, BrowserWindow } = require('electron')
+const { app, BrowserWindow, globalShortcut } = require('electron')
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -20,6 +20,18 @@ function createWindow(event) {
 
     // and load the index.html of the app.
     mainWindow.loadFile('index.html');
+
+    globalShortcut.register('g', () => {
+        console.log('user pressed g');
+    });
+    globalShortcut.register('CommandOrControl+g', () => {
+        console.log('user pressed g with CMD(In Mac) or Ctrl(In Windows)');
+
+        globalShortcut.unregister('CommandOrControl+g')
+        console.log('CommandOrControl+g has been unregistered');
+    });
+
+
 
 
     // Open the DevTools.
