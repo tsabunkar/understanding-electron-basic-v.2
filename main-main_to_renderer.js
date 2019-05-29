@@ -18,6 +18,13 @@ function createWindow(event) {
   // and load the index.html of the app.
   mainWindow.loadFile('index.html');
 
+  mainWindow.webContents.on('did-finish-load', () => {
+    mainWindow.webContents.send(
+      'private',
+      'Messages from MainProcess to Renderer Window'
+    );
+  });
+
   // Open the DevTools.
   // mainWindow.webContents.openDevTools()
 

@@ -1,9 +1,19 @@
 // Modules to control application life and create native browser window
-const { app, BrowserWindow } = require('electron');
+const { app, BrowserWindow, ipcMain } = require('electron');
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow;
+
+// !Performing synchronous operation in Renderer communication
+ipcMain.on('sync-channel', (e, args) => {
+  console.log('** sync message recieved **');
+  console.log(args);
+  setTimeout(() => {
+    console.log('------After 10 sec-------');
+    e.returnValue = 'A synchornous response from the main process';
+  }, 10000);
+});
 
 function createWindow(event) {
   // Create the browser window.
